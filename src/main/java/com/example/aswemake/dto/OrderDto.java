@@ -23,6 +23,22 @@ public class OrderDto {
         private List<BasketDto.BasketResponseDto> basket;
         private int deliveryFee;
     }
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class CouponApplicationOrderGetDto{
+        private long orderId;
+        private long couponId;
+    }
+    @Setter
+    @Getter
+    @NoArgsConstructor
+    public static class CouponApplicationOrderResponseDto{
+        private int response;
+    }
+
+
     @Setter
     @Getter
     public static class getBasketResponse{

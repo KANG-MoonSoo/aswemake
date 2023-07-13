@@ -33,4 +33,9 @@ public class OrderController {
         int totalPrice = orderService.totalPrice(orderId);
         return new ResponseEntity<>(totalPrice, HttpStatus.OK);
     }
+    @GetMapping("/couponApplicationPrice")
+    public ResponseEntity couponApplicationPrice(OrderDto.CouponApplicationOrderGetDto couponApplicationOrderGetDto){
+        OrderDto.CouponApplicationOrderResponseDto response = orderService.couponApplicationPrice(couponApplicationOrderGetDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

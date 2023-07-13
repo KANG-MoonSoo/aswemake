@@ -1,7 +1,6 @@
 package com.example.aswemake.controller;
 
 import com.example.aswemake.dto.ProductDto;
-import com.example.aswemake.dto.ProductTimeDto;
 import com.example.aswemake.entity.Product;
 import com.example.aswemake.entity.ProductTime;
 import com.example.aswemake.mapper.ProductMapper;
@@ -66,8 +65,8 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @GetMapping("/priceAtTime")
-    public ResponseEntity getProductPriceAtTime(ProductTimeDto.ProductTimeGetDto productTimeGetDto) {
-        ProductTimeDto.ProductTimeResponseDto response = productService.search(productTimeGetDto);
+    public ResponseEntity getProductPriceAtTime(ProductDto.ProductTimeGetDto productTimeGetDto) {
+        ProductDto.ProductTimeResponseDto response = productService.search(productTimeGetDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

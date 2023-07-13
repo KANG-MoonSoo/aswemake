@@ -53,11 +53,33 @@ public class OrderService {
         return total;
     }
     //쿠폰 적용 금액
-//    public int couponApplicationPrice(long couponId, long orderId){
-//        Optional<Order> order = orderRepository.findById(orderId);
-//        Optional<Coupon> coupon = couponRepository.findById(couponId);
-//        int productPrice = totalPrice(orderId) - order.get().getDeliveryFee();
-//
-//    }
+    public OrderDto.CouponApplicationOrderResponseDto couponApplicationPrice(OrderDto.CouponApplicationOrderGetDto couponApplicationOrderGetDto){
+        Optional<Order> order = orderRepository.findById(couponApplicationOrderGetDto.getOrderId());
+        Optional<Coupon> coupon = couponRepository.findById(couponApplicationOrderGetDto.getCouponId());
+        int productPrice = totalPrice(couponApplicationOrderGetDto.getOrderId()) - order.get().getDeliveryFee();
+        int result = 0;
+        if (coupon.get().getType().equals("고정")){
+            result = (int)(productPrice - coupon.get().getValue());
+        }
+        else if (coupon.get().getType().equals("비율")) {
+            if (coupon.get().getRange().equals("주문 전체")){
+                result = (int)(productPrice * coupon.get().getValue());
+            }
+            else if (coupon.get().getRange().equals("특정 상품 한정")) {
+                for (int i = 0; i < order.get().getBaskets().size(); i++) {
+                    if (order.get().getBaskets().get(i).getProduct().getProductId() == coupon.get().getProductId()){
+                        result += order.get().getBaskets().get(i).getProduct().getPrice() *
+                                coupon.get().getValue() *
+                                order.get().getBaskets().get(i).getQuantity();
+                    }else {
+                        result += order.get().getBaskets().get(i).getProduct().getPrice() * order.get().getBaskets().get(i).getQuantity();
+                    }
+                }
+            }
+        }
+        OrderDto.CouponApplicationOrderResponseDto response = new OrderDto.CouponApplicationOrderResponseDto();
+        response.setResponse(result + order.get().getDeliveryFee());
+        return response;
+    }
 
 }

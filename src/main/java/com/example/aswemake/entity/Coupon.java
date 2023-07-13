@@ -24,4 +24,5 @@ public class Coupon {
 
     private double value;
 
+    private long productId;
 }

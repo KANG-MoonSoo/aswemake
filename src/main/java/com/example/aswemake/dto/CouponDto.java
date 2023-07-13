@@ -12,6 +12,8 @@ public class CouponDto {
         private String range;
 
         private double value;
+        @Nullable
+        private long productId;
 
     }
     @Getter
@@ -24,6 +26,8 @@ public class CouponDto {
         private String range;
 
         private double value;
+
+        private long productId;
 
     }
 }

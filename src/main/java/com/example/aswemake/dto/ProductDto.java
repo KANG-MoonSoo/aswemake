@@ -35,6 +35,23 @@ public class ProductDto {
         @NotNull
         private int price;
     }
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ProductTimeGetDto{
+        @NotBlank(message = "The name must bot be blank.")
+        private String productName;
+        @NotNull
+        private String time;
+    }
+    @Setter
+    @Getter
+    @NoArgsConstructor
+    public static class ProductTimeResponseDto{
+        private String response;
+
+    }
 
     @Getter
     @Setter

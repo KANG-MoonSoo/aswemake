@@ -1,6 +1,6 @@
 package com.example.aswemake.service;
 
-import com.example.aswemake.dto.ProductTimeDto;
+import com.example.aswemake.dto.ProductDto;
 import com.example.aswemake.entity.Product;
 import com.example.aswemake.entity.ProductTime;
 import com.example.aswemake.exception.BusinessLogicException;
@@ -64,7 +64,7 @@ public class ProductService {
     public ProductTime createProductTime(ProductTime productTime){
         return productTimeRepository.save(productTime);
     }
-    public ProductTimeDto.ProductTimeResponseDto search(ProductTimeDto.ProductTimeGetDto productTimeGetDto) {
+    public ProductDto.ProductTimeResponseDto search(ProductDto.ProductTimeGetDto productTimeGetDto) {
         Optional<List<ProductTime>> findProductTimeList = productTimeRepository.findByProductName(productTimeGetDto.getProductName());
 
         if (!findProductTimeList.isPresent() || findProductTimeList.get().isEmpty()) {
@@ -81,10 +81,10 @@ public class ProductService {
 
         ProductTime latestProductTime = filteredProductTimeList.get(filteredProductTimeList.size() - 1);
 
-        ProductTimeDto.ProductTimeResponseDto response = new ProductTimeDto.ProductTimeResponseDto();
+        ProductDto.ProductTimeResponseDto response = new ProductDto.ProductTimeResponseDto();
 
         response.setResponse(
-                "선택하신 시점의 " + productTimeGetDto.getProductName() + "상품의 가격 = " + latestProductTime.getPrice() + "원");
+                productTimeGetDto.getTime() + " 시점의 " + productTimeGetDto.getProductName() + "상품의 가격 = " + latestProductTime.getPrice() + "원");
 
         return response;
     }
