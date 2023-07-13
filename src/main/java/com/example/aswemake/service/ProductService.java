@@ -1,22 +1,30 @@
 package com.example.aswemake.service;
 
+import com.example.aswemake.dto.ProductTimeDto;
 import com.example.aswemake.entity.Product;
+import com.example.aswemake.entity.ProductTime;
 import com.example.aswemake.exception.BusinessLogicException;
 import com.example.aswemake.exception.ExceptionCode;
 import com.example.aswemake.repository.ProductRepository;
+import com.example.aswemake.repository.ProductTimeRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    private final ProductTimeRepository productTimeRepository;
 
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
     //상품 생성
     public Product createProduct(Product product){
         return productRepository.save(product);
@@ -53,4 +61,32 @@ public class ProductService {
 
         return findProduct;
     }
+    public ProductTime createProductTime(ProductTime productTime){
+        return productTimeRepository.save(productTime);
+    }
+    public ProductTimeDto.ProductTimeResponseDto search(ProductTimeDto.ProductTimeGetDto productTimeGetDto) {
+        Optional<List<ProductTime>> findProductTimeList = productTimeRepository.findByProductName(productTimeGetDto.getProductName());
+
+        if (!findProductTimeList.isPresent() || findProductTimeList.get().isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
+        }
+
+        List<ProductTime> filteredProductTimeList = findProductTimeList.get().stream()
+                .filter(pt -> pt.getTime().compareTo(productTimeGetDto.getTime()) <= 0)
+                .collect(Collectors.toList());
+
+        if (filteredProductTimeList.isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
+        }
+
+        ProductTime latestProductTime = filteredProductTimeList.get(filteredProductTimeList.size() - 1);
+
+        ProductTimeDto.ProductTimeResponseDto response = new ProductTimeDto.ProductTimeResponseDto();
+
+        response.setResponse(
+                "선택하신 시점의 " + productTimeGetDto.getProductName() + "상품의 가격 = " + latestProductTime.getPrice() + "원");
+
+        return response;
+    }
+
 }

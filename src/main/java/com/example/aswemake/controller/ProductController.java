@@ -1,7 +1,9 @@
 package com.example.aswemake.controller;
 
 import com.example.aswemake.dto.ProductDto;
+import com.example.aswemake.dto.ProductTimeDto;
 import com.example.aswemake.entity.Product;
+import com.example.aswemake.entity.ProductTime;
 import com.example.aswemake.mapper.ProductMapper;
 import com.example.aswemake.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping(value = "/product")
@@ -27,6 +31,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity postProduct(@Valid @RequestBody ProductDto.ProductPostDto productPostDto){
         Product product = productService.createProduct(productMapper.productPostDtoToProduct(productPostDto));
+        ProductTime productTime = productService.createProductTime(productMapper.productPostDtoToProductTime(productPostDto));
 
         return new ResponseEntity<>(productMapper.productToProductResponseDto(product), HttpStatus.CREATED);
     }
@@ -38,6 +43,7 @@ public class ProductController {
         productPatchDto.setProductId(productId);
 
         Product response = productService.updateProduct(productMapper.productPatchDtoToProduct(productPatchDto));
+        ProductTime productTime = productService.createProductTime(productMapper.productPatchDtoToProductTime(productPatchDto));
 
         return new ResponseEntity<>(productMapper.productToProductResponseDto(response), HttpStatus.OK);
     }
@@ -58,6 +64,11 @@ public class ProductController {
     public ResponseEntity deleteProduct(@PathVariable("product-id") @Positive long productId){
         productService.deleteProduct(productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("/priceAtTime")
+    public ResponseEntity getProductPriceAtTime(ProductTimeDto.ProductTimeGetDto productTimeGetDto) {
+        ProductTimeDto.ProductTimeResponseDto response = productService.search(productTimeGetDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
 

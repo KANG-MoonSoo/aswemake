@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ProductDto {
@@ -43,6 +44,7 @@ public class ProductDto {
 
     @Setter
     @Getter
+    @NoArgsConstructor
     public static class ProductResponseDto{
         private long productId;
 
