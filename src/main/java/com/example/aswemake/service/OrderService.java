@@ -2,11 +2,13 @@ package com.example.aswemake.service;
 
 import com.example.aswemake.dto.OrderDto;
 import com.example.aswemake.entity.Basket;
+import com.example.aswemake.entity.Coupon;
 import com.example.aswemake.entity.Order;
 import com.example.aswemake.entity.Product;
 import com.example.aswemake.exception.BusinessLogicException;
 import com.example.aswemake.exception.ExceptionCode;
 import com.example.aswemake.repository.BasketRepository;
+import com.example.aswemake.repository.CouponRepository;
 import com.example.aswemake.repository.OrderRepository;
 import com.example.aswemake.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,7 @@ import java.util.Optional;
 public class OrderService {
     private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
+    private final CouponRepository couponRepository;
     private final BasketRepository basketRepository;
 
     //주문 생성
@@ -49,5 +52,12 @@ public class OrderService {
         }
         return total;
     }
+    //쿠폰 적용 금액
+//    public int couponApplicationPrice(long couponId, long orderId){
+//        Optional<Order> order = orderRepository.findById(orderId);
+//        Optional<Coupon> coupon = couponRepository.findById(couponId);
+//        int productPrice = totalPrice(orderId) - order.get().getDeliveryFee();
+//
+//    }
 
 }
