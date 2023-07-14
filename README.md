@@ -2,7 +2,7 @@
 애즈위메이크 백엔드 과제
 
 ## 프로젝트 실행 방법
-1. 프로젝트 실행 http://localhost:8080/swagger-ui.html 접속.
+1. 프로젝트 실행 후 http://localhost:8080/swagger-ui.html 접속.
    
 2. product-controller에 postProduct(상품 생성) 실행. (테스트 하기 편한 만큼 생성)
    - postProduct : {"price": 1000,"productName": "water"}
