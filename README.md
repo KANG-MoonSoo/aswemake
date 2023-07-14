@@ -29,4 +29,4 @@
 
 7. order-controller에 couponApplicationPrice(쿠폰을 적용한 주문에 필요 금액) 실행.
    - couponApplicationPrice : (orderId : 1), (couponId : 1)
-   - 6번에서 말한 예시쿠폰 3개를 다 해보며 가격 비
+   - 6번에서 말한 예시쿠폰 3개를 다 해보며 가격 비교
