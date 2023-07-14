@@ -6,6 +6,7 @@ import org.springframework.lang.Nullable;
 
 public class CouponDto {
     @Getter
+    @Setter
     public static class CouponPostDto{
         private String type;
 

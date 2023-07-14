@@ -37,24 +37,4 @@ public class OrderDto {
     public static class CouponApplicationOrderResponseDto{
         private int response;
     }
-
-
-    @Setter
-    @Getter
-    public static class getBasketResponse{
-        private long productId;
-        private String productName;
-        private int price;
-        private int quantity;
-    }
-    @Getter
-    @Setter
-    public static class TotalPricePostDto{
-        private long orderId;
-    }
-    @Getter
-    @Setter
-    public static class TotalPriceResponseDto{
-        private int totalPrice;
-    }
 }

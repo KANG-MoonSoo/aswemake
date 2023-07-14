@@ -1,6 +1,5 @@
 package com.example.aswemake.entity;
 
-import com.example.aswemake.audit.Auditable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -53,12 +53,6 @@ public class ProductDto {
 
     }
 
-    @Getter
-    @Setter
-    public static class ProductPatchListDto{
-        private List<ProductPatchDto> ProductList;
-    }
-
     @Setter
     @Getter
     @NoArgsConstructor

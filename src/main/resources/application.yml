@@ -1,11 +1,37 @@
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2
-  datasource:
-    url: jdbc:h2:mem:test
-  jpa:
-    hibernate:
-      ddl-auto: create
-    show-sql: true
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/mydb?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+        username: root
+        password: PassWord
+    jpa:
+        database: mysql
+        hibernate:
+          ddl-auto: update
+        show_sql: true
+        properties:
+          hibernate:
+            format_sql: true
+logging:
+    level:
+        org:
+          springframework:
+            orm:
+              jpa: DEBUG
+server:
+    servlet:
+        encoding:
+          force-response: true
+
+#mySQL로 돌아가지 않을시 h2로 해주세요.
+#spring:
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2
+#  datasource:
+#    url: jdbc:h2:mem:test
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#    show-sql: true

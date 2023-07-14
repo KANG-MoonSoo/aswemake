@@ -52,14 +52,4 @@ public interface OrderMapper {
         }
         return responses;
     }
-//    default Order totalPricePostDtoToTotalPrice(OrderDto.TotalPricePostDto totalPricePostDto){
-//        Order totalPrice = new Order();
-//        totalPrice.setOrderId(totalPricePostDto.getOrderId());
-//        return totalPrice;
-//    }
-//    default OrderDto.TotalPriceResponseDto totalPriceToTotalPriceResponseDto(Order order){
-//        OrderDto.TotalPriceResponseDto response = new OrderDto.TotalPriceResponseDto();
-//        response.setTotalPrice(order.getTotalPrice());
-//        return response;
-//    }
 }
